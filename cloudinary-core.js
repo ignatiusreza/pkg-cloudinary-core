@@ -10,11 +10,30 @@ var slice = [].slice,
   hasProp = {}.hasOwnProperty;
 
 (function(root, factory) {
-  var name, ref, results, value;
+  var factoryWrapper, name, ref, results, value;
+  factoryWrapper = function(assign, cloneDeep, compact, difference, functions, identity, includes, isArray, isElement, isEmpty, isFunction, isPlainObject, isString, merge, trim) {
+    return factory({
+      assign: assign,
+      cloneDeep: cloneDeep,
+      compact: compact,
+      difference: difference,
+      functions: functions,
+      identity: identity,
+      includes: includes,
+      isArray: isArray,
+      isElement: isElement,
+      isEmpty: isEmpty,
+      isFunction: isFunction,
+      isPlainObject: isPlainObject,
+      isString: isString,
+      merge: merge,
+      trim: trim
+    });
+  };
   if ((typeof define === 'function') && define.amd) {
-    return define(['lodash'], factory);
+    return define(['lodash/assign', 'lodash/cloneDeep', 'lodash/compact', 'lodash/difference', 'lodash/functions', 'lodash/identity', 'lodash/includes', 'lodash/isArray', 'lodash/isElement', 'lodash/isEmpty', 'lodash/isFunction', 'lodash/isPlainObject', 'lodash/isString', 'lodash/merge', 'lodash/trim'], factoryWrapper);
   } else if (typeof exports === 'object') {
-    return module.exports = factory(require('lodash'));
+    return module.exports = factoryWrapper(require('lodash/assign'), require('lodash/cloneDeep'), require('lodash/compact'), require('lodash/difference'), require('lodash/functions'), require('lodash/identity'), require('lodash/includes'), require('lodash/isArray'), require('lodash/isElement'), require('lodash/isEmpty'), require('lodash/isFunction'), require('lodash/isPlainObject'), require('lodash/isString'), require('lodash/merge'), require('lodash/trim'));
   } else {
     root.cloudinary || (root.cloudinary = {});
     ref = factory(_);
